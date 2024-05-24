@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travels_app/pages/select_signup_signin.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -35,19 +36,26 @@ class WelcomePage extends StatelessWidget {
               Text(
                   "Welcome to Wanderlust, your ultimate travel companion! Wanderlust is designed to make your travel planning effortless and enjoyable. With our intuitive app, you can explore exciting destinations, book flights and accommodations, find local attractions, and create personalized itineraries all in one place"),
               Padding(
-                padding: const EdgeInsets.only(left: 200,top: 30),
+                padding: const EdgeInsets.only(left: 200, top: 30),
                 child: ElevatedButton(
-                  style:ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(Size(30, 50)),
-                    backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 219, 164, 82)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(Size(30, 50)),
+                      backgroundColor: MaterialStateProperty.all(
+                          Color.fromARGB(255, 219, 164, 82)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(9)),
-                      )
-                    )
+                      ))),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SelectSignUpAndSignIn()));
+                  },
+                  child: Icon(
+                    Icons.arrow_right_alt_rounded,
+                    size: 35,
+                    color: Colors.black,
                   ),
-                  onPressed: (){},
-                  child: Icon(Icons.arrow_right_alt_rounded,size: 35,color: Colors.black,),
                 ),
               ),
             ],
