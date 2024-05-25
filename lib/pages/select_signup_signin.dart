@@ -84,8 +84,14 @@ class SelectSignUpAndSignIn extends StatelessWidget {
                     ),
                     onPressed: () {
                       showModalBottomSheet(
-                          context: context, 
-                          builder: (context) => SignIn()
+                        isScrollControlled: true,
+                        context: context, 
+                        builder: (context) => SingleChildScrollView(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom
+                          ),
+                          child: SignIn(),
+                        )
                       );
                     },
                     child: Text("Sign In",
