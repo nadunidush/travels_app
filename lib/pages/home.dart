@@ -127,7 +127,30 @@ class Home extends StatelessWidget {
           Text("Become A Member",style: TextStyle(
             fontSize: 33,
             fontWeight: FontWeight.w600,
-          ),)
+          ),),
+
+          Text("SignIn or create a account",style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.orange[300],
+          ),),
+
+          SizedBox(height: 30,),
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Image.asset("assets/homePageTravel.jpg",width: 350,)),
+              Positioned(
+                top: 170,
+                left: 30,
+                child: Text("Travel the World",style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),),
+              )
+            ],
+          )
         ],
       ),
     );
