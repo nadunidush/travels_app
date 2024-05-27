@@ -48,8 +48,8 @@ class _SelectButtonFlightState extends State<SelectButtonFlight> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6),
       ),
-      backgroundColor: isSelected ? const Color.fromARGB(255, 8, 82, 142) : (isOtherButtonSelected ? Colors.white : Colors.orange),
-      foregroundColor: isSelected ? Colors.white : (isOtherButtonSelected ? const Color.fromARGB(255, 8, 82, 142): Colors.orange),
+      backgroundColor: isSelected ? const Color.fromARGB(255, 8, 82, 142) : (isOtherButtonSelected ? Colors.white : const Color.fromARGB(255, 8, 82, 142)),
+      foregroundColor: isSelected ? Colors.white : (isOtherButtonSelected ? const Color.fromARGB(255, 8, 82, 142): Colors.white),
     );
   }
 }
