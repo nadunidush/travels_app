@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travels_app/widgets/select_button_flight.dart';
+import 'package:intl/intl.dart';
 
 class SearchOneWayFlight extends StatefulWidget {
   const SearchOneWayFlight({super.key});
@@ -9,6 +10,32 @@ class SearchOneWayFlight extends StatefulWidget {
 }
 
 class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
+
+  final TextEditingController _dateController = TextEditingController();
+
+  DateTime? _selectedDate;
+
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
+  }
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime.now().add(Duration(days: 2)),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        final DateFormat formatter = DateFormat('yyyy-MM-dd');
+        _dateController.text = formatter.format(picked);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,6 +85,7 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
               height: 17,
             ),
             TextField(
+              controller: _dateController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 224, 224, 223),
@@ -68,10 +96,16 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
 
                 prefixIcon: Icon(Icons.date_range_outlined,
                     color: const Color.fromARGB(255, 8, 82, 142)),
+                
+                suffixIcon: IconButton(
+                  onPressed: () => _selectDate(context), 
+                  icon: Icon(Icons.calendar_today)
+                ),
 
                 hintText: "Select Date",
                 //label: Text("Flying From")
               ),
+              //keyboardType: TextInputType.datetime,
             ),
             SizedBox(
               height: 17,

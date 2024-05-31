@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travels_app/widgets/select_button_flight.dart';
+import 'package:intl/intl.dart';
 
 class SearchRoundedFlight extends StatefulWidget {
   const SearchRoundedFlight({super.key});
@@ -9,6 +10,34 @@ class SearchRoundedFlight extends StatefulWidget {
 }
 
 class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
+  final TextEditingController _dateRangeController = TextEditingController();
+
+  DateTimeRange? _selectedDateRange;
+
+  @override
+  void dispose() {
+    _dateRangeController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _selectDateRange(BuildContext context) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      initialDateRange: _selectedDateRange,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 2),
+    );
+
+    if (picked != null && picked != _selectedDateRange) {
+      setState(() {
+        _selectedDateRange = picked;
+        final DateFormat formatter = DateFormat('yyyy-MM-dd');
+        _dateRangeController.text =
+            "${formatter.format(picked.start)} - ${formatter.format(picked.end)}";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,6 +87,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
               height: 17,
             ),
             TextField(
+              controller: _dateRangeController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 224, 224, 223),
@@ -66,12 +96,16 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
                   borderRadius: BorderRadius.circular(10),
                 ),
 
-                prefixIcon: Icon(Icons.date_range_outlined,
-                    color: const Color.fromARGB(255, 8, 82, 142)),
+                prefixIcon: Icon(Icons.date_range,color: const Color.fromARGB(255, 8, 82, 142)),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () => _selectDateRange(context),
+                ),
 
                 hintText: "Select Dates",
                 //label: Text("Flying From")
               ),
+              keyboardType: TextInputType.datetime,
             ),
             SizedBox(
               height: 17,
