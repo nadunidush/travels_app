@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:travels_app/pages/select_flight.dart';
 import 'package:travels_app/widgets/select_button_flight.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SearchRoundedFlight extends StatefulWidget {
   const SearchRoundedFlight({super.key});
@@ -10,7 +13,15 @@ class SearchRoundedFlight extends StatefulWidget {
 }
 
 class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
+  final _formKey = GlobalKey<FormState>();
+  final _flyingFromController = TextEditingController();
+  final _flyingToController = TextEditingController();
+  final _adultController = TextEditingController();
+  final _childernController = TextEditingController();
   final TextEditingController _dateRangeController = TextEditingController();
+
+  String _selectedFlightClass = '';
+  int _selectedButtonIndex = -1;
 
   DateTimeRange? _selectedDateRange;
 
@@ -18,6 +29,12 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
   void dispose() {
     _dateRangeController.dispose();
     super.dispose();
+  }
+
+  void _onButtonPressed(int index) {
+    setState(() {
+      _selectedButtonIndex = index;
+    });
   }
 
   Future<void> _selectDateRange(BuildContext context) async {
@@ -38,6 +55,49 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
     }
   }
 
+  void updateSelectedFlightClass(String selectedClass) {
+    setState(() {
+      _selectedFlightClass = selectedClass;
+    });
+  }
+
+  Future<void> _saveSearchData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // Handle the case where the user is not logged in
+      print("User is not logged in.");
+      return;
+    }
+
+    String uid = user.uid;
+    String flyingFrom = _flyingFromController.text;
+    String flyingTo = _flyingToController.text;
+    String adults = _adultController.text;
+    String children = _childernController.text;
+    String dateRange = _dateRangeController.text;
+
+    await FirebaseFirestore.instance.collection('flights').add({
+      'flyingFrom': flyingFrom,
+      'flyingTo': flyingTo,
+      'adults': adults,
+      'children': children,
+      'select_date': dateRange,
+      'uid': uid,
+      'flightClass': _selectedFlightClass,
+    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SelectFlight(
+          docId: 'hello',
+        ),
+      ),
+    );
+    print("Data saved successfully.");
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,6 +109,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
               height: 5,
             ),
             TextField(
+              controller: _flyingFromController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 224, 224, 223),
@@ -68,6 +129,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
               height: 17,
             ),
             TextField(
+              controller: _flyingToController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 224, 224, 223),
@@ -96,7 +158,8 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
                   borderRadius: BorderRadius.circular(10),
                 ),
 
-                prefixIcon: Icon(Icons.date_range,color: const Color.fromARGB(255, 8, 82, 142)),
+                prefixIcon: Icon(Icons.date_range,
+                    color: const Color.fromARGB(255, 8, 82, 142)),
                 suffixIcon: IconButton(
                   icon: Icon(Icons.calendar_today),
                   onPressed: () => _selectDateRange(context),
@@ -111,6 +174,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
               height: 17,
             ),
             TextField(
+              controller: _adultController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 224, 224, 223),
@@ -131,6 +195,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
               height: 17,
             ),
             TextField(
+              controller: _childernController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Color.fromARGB(255, 224, 224, 223),
@@ -150,18 +215,57 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
             SizedBox(
               height: 17,
             ),
-
-            SelectButtonFlight(),
-
-            SizedBox(height: 26,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: _getButtonStyle(0),
+                  onPressed: () {
+                    _onButtonPressed(0);
+                    setState(() {
+                      _selectedFlightClass = 'Economy';
+                    });
+                  },
+                  child: Text(
+                    "Economy",
+                  ),
+                ),
+                ElevatedButton(
+                  style: _getButtonStyle(1),
+                  onPressed: () {
+                    _onButtonPressed(1);
+                    setState(() {
+                      _selectedFlightClass = 'Business';
+                    });
+                  },
+                  child: Text(
+                    "Business",
+                  ),
+                ),
+                ElevatedButton(
+                  style: _getButtonStyle(2),
+                  onPressed: () {
+                    _onButtonPressed(2);
+                    setState(() {
+                      _selectedFlightClass = 'FirstClass';
+                    });
+                  },
+                  child: Text(
+                    "FirstClass",
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 26,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(350, 55),
-                  backgroundColor:
-                      const Color.fromARGB(255, 244, 168, 54),
+                  backgroundColor: const Color.fromARGB(255, 244, 168, 54),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
-              onPressed: () {},
+              onPressed: () => _saveSearchData,
               child: Text(
                 "Search",
                 style: TextStyle(
@@ -173,6 +277,27 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
           ],
         ),
       ),
+    );
+  }
+
+  ButtonStyle _getButtonStyle(int index) {
+    bool isSelected = _selectedButtonIndex == index;
+    bool isOtherButtonSelected = _selectedButtonIndex != -1 && !isSelected;
+
+    return ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6),
+      ),
+      backgroundColor: isSelected
+          ? const Color.fromARGB(255, 8, 82, 142)
+          : (isOtherButtonSelected
+              ? Colors.white
+              : const Color.fromARGB(255, 8, 82, 142)),
+      foregroundColor: isSelected
+          ? Colors.white
+          : (isOtherButtonSelected
+              ? const Color.fromARGB(255, 8, 82, 142)
+              : Colors.white),
     );
   }
 }

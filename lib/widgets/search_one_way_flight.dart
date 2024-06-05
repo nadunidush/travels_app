@@ -10,16 +10,24 @@ class SearchOneWayFlight extends StatefulWidget {
 }
 
 class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
-
   final TextEditingController _dateController = TextEditingController();
 
   DateTime? _selectedDate;
+  int _selectedButtonIndex = -1;
+  String _selectedFlightClass = '';
 
   @override
   void dispose() {
     _dateController.dispose();
     super.dispose();
   }
+
+  void _onButtonPressed(int index) {
+    setState(() {
+      _selectedButtonIndex = index;
+    });
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -36,6 +44,7 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -96,11 +105,10 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
 
                 prefixIcon: Icon(Icons.date_range_outlined,
                     color: const Color.fromARGB(255, 8, 82, 142)),
-                
+
                 suffixIcon: IconButton(
-                  onPressed: () => _selectDate(context), 
-                  icon: Icon(Icons.calendar_today)
-                ),
+                    onPressed: () => _selectDate(context),
+                    icon: Icon(Icons.calendar_today)),
 
                 hintText: "Select Date",
                 //label: Text("Flying From")
@@ -150,15 +158,51 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
             SizedBox(
               height: 17,
             ),
-
-            SelectButtonFlight(),
-
-            SizedBox(height: 26,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: _getButtonStyle(0),
+                  onPressed: () {
+                    setState(() {
+                      _selectedFlightClass = 'Economy';
+                    });
+                  },
+                  child: Text(
+                    "Economy",
+                  ),
+                ),
+                ElevatedButton(
+                  style: _getButtonStyle(1),
+                  onPressed: () {
+                    setState(() {
+                      _selectedFlightClass = 'Business';
+                    });
+                  },
+                  child: Text(
+                    "Business",
+                  ),
+                ),
+                ElevatedButton(
+                  style: _getButtonStyle(2),
+                  onPressed: () {
+                    setState(() {
+                      _selectedFlightClass = 'FirstClass';
+                    });
+                  },
+                  child: Text(
+                    "FirstClass",
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 26,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(350, 55),
-                  backgroundColor:
-                      const Color.fromARGB(255, 244, 168, 54),
+                  backgroundColor: const Color.fromARGB(255, 244, 168, 54),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
               onPressed: () {},
@@ -173,6 +217,27 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
           ],
         ),
       ),
+    );
+  }
+
+  ButtonStyle _getButtonStyle(int index) {
+    bool isSelected = _selectedButtonIndex == index;
+    bool isOtherButtonSelected = _selectedButtonIndex != -1 && !isSelected;
+
+    return ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6),
+      ),
+      backgroundColor: isSelected
+          ? const Color.fromARGB(255, 8, 82, 142)
+          : (isOtherButtonSelected
+              ? Colors.white
+              : const Color.fromARGB(255, 8, 82, 142)),
+      foregroundColor: isSelected
+          ? Colors.white
+          : (isOtherButtonSelected
+              ? const Color.fromARGB(255, 8, 82, 142)
+              : Colors.white),
     );
   }
 }

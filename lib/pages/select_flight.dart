@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SelectFlight extends StatefulWidget {
-  const SelectFlight({super.key});
+  final String docId;
+  const SelectFlight({super.key, required this.docId});
 
   @override
   State<SelectFlight> createState() => _SelectFlightState();
 }
 
 class _SelectFlightState extends State<SelectFlight> {
+  late Future<DocumentSnapshot> _flightDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _flightDataFuture = FirebaseFirestore.instance.collection('flights').doc(widget.docId).get();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,193 +56,275 @@ class _SelectFlightState extends State<SelectFlight> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10, right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.tune_sharp,
-                      size: 29,
-                      weight: 700,
-                    )),
-                SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      backgroundColor: Colors.lightBlue,
-                      foregroundColor: Colors.white),
-                  onPressed: () {},
-                  child: Text("Fliters"),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          //Flying from and flying to
-          Row(
+      body: FutureBuilder<DocumentSnapshot>(
+        future: _flightDataFuture,
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return Center(child: Text('Flight not found'));
+          }
+
+          var flightData = snapshot.data!.data() as Map<String, dynamic>;
+          String flyingFrom = flightData['flyingFrom'] ?? 'Unknown';
+          String flyingTo = flightData['flyingTo'] ?? 'Unknown';
+
+          return Column(
             children: [
-              SizedBox(
-                width: 40,
-              ),
-              Text(
-                "London",
-                style: TextStyle(
-                  fontSize: 33,
-                  fontWeight: FontWeight.w800,
+              Padding(
+                padding: const EdgeInsets.only(top: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.tune_sharp,
+                          size: 29,
+                          weight: 700,
+                        )),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor: Colors.lightBlue,
+                          foregroundColor: Colors.white),
+                      onPressed: () {},
+                      child: Text("Filters"),
+                    )
+                  ],
                 ),
               ),
               SizedBox(
-                width: 30,
+                height: 10,
               ),
-              Image.asset(
-                "assets/flight_icon.png",
-                width: 30,
-                color: const Color.fromARGB(255, 244, 168, 54),
+              //Flying from and flying to
+              Row(
+                children: [
+                  SizedBox(
+                    width: 40,
+                  ),
+                  Text(
+                    flyingFrom,
+                    style: TextStyle(
+                      fontSize: 33,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Image.asset(
+                    "assets/flight_icon.png",
+                    width: 30,
+                    color: const Color.fromARGB(255, 244, 168, 54),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    flyingTo,
+                    style: TextStyle(
+                      fontSize: 33,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 30,
-              ),
-              Text(
-                "Berlin",
-                style: TextStyle(
-                  fontSize: 33,
-                  fontWeight: FontWeight.w800,
+
+              //Select one flight.
+              Padding(
+                padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 13),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Color.fromARGB(255, 231, 230, 230),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 25, right: 25, top: 15),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "06:30 - 15:00",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                "\$320",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromARGB(255, 18, 86, 18)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Text(
+                            "International Air Lines",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "6h 40m",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "Economy",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ]),
+                  ),
                 ),
               ),
+
+              //Select one flight.
+              Padding(
+                padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 13),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Color.fromARGB(255, 231, 230, 230),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 25, right: 25, top: 15),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "06:30 - 15:00",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                "\$320",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromARGB(255, 18, 86, 18)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Text(
+                            "International Air Lines",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "6h 40m",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "Economy",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+
+              //Select one flight.
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 24.0,
+                  right: 24.0,
+                  top: 13,
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Color.fromARGB(255, 231, 230, 230),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 25, right: 25, top: 15),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "06:30 - 15:00",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                "\$320",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromARGB(255, 18, 86, 18)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Text(
+                            "International Air Lines",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "6h 40m",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "Economy",
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 118, 117, 117),
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ]),
+                  ),
+                ),
+              )
             ],
-          ),
-
-          //Select one flight.
-          Padding(
-            padding: const EdgeInsets.only(left:24.0,right: 24.0,top: 13),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 130,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Color.fromARGB(255, 231, 230, 230),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25,right: 25,top: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("06:30 - 15:00",style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600
-                        ),),
-                        Text("\$320",style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 18, 86, 18)
-                        ),),
-                      ],
-                    ),
-                    SizedBox(height: 7,),
-                    Text("International Air Lines",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                    Text("6h 40m",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                    Text("Economy",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                  ]
-                ),
-              ),
-            ),
-          ),
-
-          //Select one flight.
-          Padding(
-            padding: const EdgeInsets.only(left:24.0,right: 24.0,top: 13),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 130,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Color.fromARGB(255, 231, 230, 230),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25,right: 25,top: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("06:30 - 15:00",style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600
-                        ),),
-                        Text("\$320",style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 18, 86, 18)
-                        ),),
-                      ],
-                    ),
-                    SizedBox(height: 7,),
-                    Text("International Air Lines",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                    Text("6h 40m",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                    Text("Economy",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                  ]
-                ),
-              ),
-            ),
-          ),
-
-          //Select one flight.
-          Padding(
-            padding: const EdgeInsets.only(left:24.0,right: 24.0,top: 13,),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 130,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Color.fromARGB(255, 231, 230, 230),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25,right: 25,top: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("06:30 - 15:00",style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600
-                        ),),
-                        Text("\$320",style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 18, 86, 18)
-                        ),),
-                      ],
-                    ),
-                    SizedBox(height: 7,),
-                    Text("International Air Lines",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                    Text("6h 40m",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                    Text("Economy",style: TextStyle(color: const Color.fromARGB(255, 118, 117, 117),fontWeight: FontWeight.w500),),
-                  ]
-                ),
-              ),
-            ),
-          )
-        ],
+          );
+        },
       ),
 
       //Bottomsheet of screen
@@ -248,7 +340,7 @@ class _SelectFlightState extends State<SelectFlight> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_rounded),
-            label: "Acount",
+            label: "Account",
           ),
         ],
         selectedLabelStyle: TextStyle(
