@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:travels_app/pages/home.dart';
 import 'package:travels_app/pages/plan_destination_flight.dart';
 import 'package:travels_app/pages/select_flight.dart';
+import 'package:travels_app/pages/select_flight_details.dart';
 import 'package:travels_app/pages/welcome_page.dart';
 import 'firebase_options.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomePage(),
+      home:WelcomePage(),
     );
   }
 }

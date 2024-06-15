@@ -76,7 +76,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
     String children = _childernController.text;
     String dateRange = _dateRangeController.text;
 
-    await FirebaseFirestore.instance.collection('flights').add({
+    DocumentReference docRef = await FirebaseFirestore.instance.collection('flights').add({
       'flyingFrom': flyingFrom,
       'flyingTo': flyingTo,
       'adults': adults,
@@ -90,7 +90,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
       context,
       MaterialPageRoute(
         builder: (context) => SelectFlight(
-          docId: 'hello',
+          docId: docRef.id,
         ),
       ),
     );
@@ -265,7 +265,7 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
                   backgroundColor: const Color.fromARGB(255, 244, 168, 54),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
-              onPressed: () => _saveSearchData,
+              onPressed: _saveSearchData,
               child: Text(
                 "Search",
                 style: TextStyle(
