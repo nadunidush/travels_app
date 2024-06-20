@@ -9,6 +9,8 @@ class FlightDetailsPage extends StatelessWidget {
   final String category;
   final String flyingFrom;
   final String flyingTo;
+  final String adults;
+  final String children;
 
   const FlightDetailsPage({
     Key? key,
@@ -19,6 +21,8 @@ class FlightDetailsPage extends StatelessWidget {
     required this.category,
     required this.flyingTo,
     required this.flyingFrom,
+    required this.adults,
+    required this.children,
   }) : super(key: key);
 
   @override
@@ -31,7 +35,11 @@ class FlightDetailsPage extends StatelessWidget {
             weight: 34,
             size: 30,
           ),
-          title: Text('Flight Details'),
+          title: Text('Flight Details',style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.white,
+          ),),
         ),
         body: Container(
           margin: EdgeInsets.only(top: 30),
@@ -65,7 +73,7 @@ class FlightDetailsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Canada",
+                          "${flyingFrom}",
                           style: TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w800,
@@ -88,7 +96,7 @@ class FlightDetailsPage extends StatelessWidget {
                               weight: 100,
                             )),
                         Text(
-                          "6h 30m",
+                          "${hours}",
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -98,7 +106,7 @@ class FlightDetailsPage extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                          "Austriali",
+                          "${flyingTo}",
                           style: TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w800,
@@ -109,7 +117,7 @@ class FlightDetailsPage extends StatelessWidget {
                         ),
                         Text("Time"),
                         Text(
-                          "9:00a.m - 12:00a.m",
+                          "${time}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w800,
@@ -120,7 +128,7 @@ class FlightDetailsPage extends StatelessWidget {
                         ),
                         Text("Fligh Name"),
                         Text(
-                          "International Air Line",
+                          "${airlineFlightName}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w800,
@@ -131,7 +139,7 @@ class FlightDetailsPage extends StatelessWidget {
                         ),
                         Text("Adults"),
                         Text(
-                          "01",
+                          "${adults}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w800,
@@ -142,7 +150,7 @@ class FlightDetailsPage extends StatelessWidget {
                         ),
                         Text("Childern"),
                         Text(
-                          "02",
+                          "${children}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w800,
@@ -164,7 +172,7 @@ class FlightDetailsPage extends StatelessWidget {
                         ),
                         Text("Ticket Price"),
                         Text(
-                          "\$730",
+                          "\$${price}",
                           style: TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w800,
@@ -193,7 +201,9 @@ class FlightDetailsPage extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CheckOut()));
+                        MaterialPageRoute(builder: (context) => CheckOut(
+                          price: price,
+                        )));
                   },
                   child: Text(
                     "Checkout",
@@ -202,7 +212,7 @@ class FlightDetailsPage extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                       color: Colors.white,
                     ),
-                  ))
+                  )),
             ],
           ),
         ));

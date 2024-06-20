@@ -9,33 +9,40 @@ class FlightArriveCard extends StatelessWidget {
   final String category;
   final String flyingFrom;
   final String flyingTo;
+  final String adult;
+  final String children;
 
-  const FlightArriveCard(
-      {super.key,
-      required this.time,
-      required this.price,
-      required this.airlineFlightName,
-      required this.hours,
-      required this.category,
-      required this.flyingTo,
-      required this.flyingFrom,
-      });
+  const FlightArriveCard({
+    super.key,
+    required this.time,
+    required this.price,
+    required this.airlineFlightName,
+    required this.hours,
+    required this.category,
+    required this.flyingTo,
+    required this.flyingFrom,
+    required this.adult,
+    required this.children,
+  });
 
   @override
   Widget build(BuildContext context) {
+    bool isTextVisible = false; // Change this flag to hide or show the text
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => FlightDetailsPage(
-                    time: time,
-                    price: price,
-                    airlineFlightName: airlineFlightName,
-                    hours: hours,
-                    category: category,
-                    flyingFrom: flyingFrom,
-                    flyingTo: flyingTo,
+                      time: time,
+                      price: price,
+                      airlineFlightName: airlineFlightName,
+                      hours: hours,
+                      category: category,
+                      flyingFrom: flyingFrom,
+                      flyingTo: flyingTo,
+                      adults: adult,
+                      children: children,
                     )));
       },
       child: Padding(
@@ -89,6 +96,22 @@ class FlightArriveCard extends StatelessWidget {
                     color: const Color.fromARGB(255, 118, 117, 117),
                     fontWeight: FontWeight.w500),
               ),
+
+              isTextVisible ?
+              Text(
+                adult,
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 118, 117, 117),
+                    fontWeight: FontWeight.w500),
+              ):Container(),
+
+              isTextVisible ?
+              Text(
+                children,
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 118, 117, 117),
+                    fontWeight: FontWeight.w500),
+              ):Container(),
             ]),
           ),
         ),

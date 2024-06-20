@@ -21,39 +21,16 @@ class _DestinationFlightsState extends State<DestinationFlights> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 244, 168, 54),
-          actions: [
-            Icon(
-              Icons.search,
-              size: 40,
-              color: Colors.white,
-            ),
-            SizedBox(
-              width: 25,
-            ),
-            Icon(
-              Icons.menu_rounded,
-              size: 40,
-              color: Colors.white,
-            ),
-            Padding(padding: EdgeInsets.all(12.0))
-          ],
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(45),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 26, bottom: 16, top: 16),
-              child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Search Flights",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  )),
-            ),
+          iconTheme: IconThemeData(
+            color: Colors.white,
+            size:30,
           ),
+          backgroundColor: const Color.fromARGB(255, 244, 168, 54),
+          title: Text("Search Flights", style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
+            color: Colors.white
+          ),),
         ),
         body: Column(
           children: [

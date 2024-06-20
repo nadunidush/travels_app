@@ -92,39 +92,16 @@ class _SelectFlightState extends State<SelectFlight> {
     sampleFlights.shuffle();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 244, 168, 54),
-        actions: [
-          Icon(
-            Icons.search,
-            size: 40,
-            color: Colors.white,
-          ),
-          SizedBox(
-            width: 25,
-          ),
-          Icon(
-            Icons.menu_rounded,
-            size: 40,
-            color: Colors.white,
-          ),
-          Padding(padding: EdgeInsets.all(12.0))
-        ],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(45),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 26, bottom: 16, top: 16),
-            child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Select Flights",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                )),
-          ),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+          size: 30
         ),
+        backgroundColor: const Color.fromARGB(255, 244, 168, 54),
+        title: Text("Select Flight",style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 23,
+          color: Colors.white,
+        ),),
       ),
       body: FutureBuilder<DocumentSnapshot>(
         future: _flightDataFuture,
@@ -146,6 +123,8 @@ class _SelectFlightState extends State<SelectFlight> {
           String flyingFrom = flightData['flyingFrom'] ?? 'Unknown';
           String flyingTo = flightData['flyingTo'] ?? 'Unknown';
           String flightClass = flightData['flightClass'] ?? 'Unknown';
+          String adult = flightData['adults'] ?? 'Unknown';
+          String children = flightData['children'] ?? 'Unknown';
 
           return Column(
             children: [
@@ -220,6 +199,9 @@ class _SelectFlightState extends State<SelectFlight> {
                       category: flightClass,
                       flyingFrom:flyingFrom,
                       flyingTo:flyingTo,
+                      adult: adult,
+                      children: children,
+
                     );
                   },
                 ),
