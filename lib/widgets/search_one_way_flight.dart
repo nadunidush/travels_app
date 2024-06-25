@@ -66,6 +66,52 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
     String children = _childernController.text;
     String dateRange = _dateController.text;
 
+    if (flyingFrom.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Flight From cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return;
+    }
+    if (flyingTo.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Flight To cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return;
+    };
+    if (adults.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Adult cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return;
+       };
+       
+    if (children.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Childern cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return null;
+       };
+
     DocumentReference docRef =
         await FirebaseFirestore.instance.collection("flights").add({
       'flyingFrom': flyingFrom,
@@ -98,7 +144,7 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
             SizedBox(
               height: 5,
             ),
-            TextField(
+            TextFormField(
               controller: _flyingFromController,
               decoration: InputDecoration(
                 filled: true,
@@ -114,11 +160,16 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
                 hintText: "Flying From",
                 //label: Text("Flying From")
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Flying From cannot be empty';
+                }
+              },
             ),
             SizedBox(
               height: 17,
             ),
-            TextField(
+            TextFormField(
               controller: _flyingToController,
               decoration: InputDecoration(
                 filled: true,
@@ -134,11 +185,16 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
                 hintText: "Flying To",
                 //label: Text("Flying From")
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Flying To cannot be empty';
+                }
+              },
             ),
             SizedBox(
               height: 17,
             ),
-            TextField(
+            TextFormField(
               controller: _dateController,
               decoration: InputDecoration(
                 filled: true,
@@ -158,12 +214,17 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
                 hintText: "Select Date",
                 //label: Text("Flying From")
               ),
-              //keyboardType: TextInputType.datetime,
+              keyboardType: TextInputType.datetime,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Date cannot be empty';
+                }
+              },
             ),
             SizedBox(
               height: 17,
             ),
-            TextField(
+            TextFormField(
               controller: _adultController,
               decoration: InputDecoration(
                 filled: true,
@@ -180,11 +241,16 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
                 //label: Text("Flying From")
               ),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Adults cannot be empty';
+                }
+              },
             ),
             SizedBox(
               height: 17,
             ),
-            TextField(
+            TextFormField(
               controller: _childernController,
               decoration: InputDecoration(
                 filled: true,
@@ -201,6 +267,11 @@ class _SearchOneWayFlightState extends State<SearchOneWayFlight> {
                 //label: Text("Flying From")
               ),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Children cannot be empty';
+                }
+              },
             ),
             SizedBox(
               height: 17,

@@ -17,6 +17,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+          size: 30,
+        ),
         backgroundColor: const Color.fromARGB(255, 244, 168, 54),
         actions: [
           Icon(

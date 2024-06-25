@@ -16,7 +16,7 @@ class FlightConfirmation extends StatelessWidget {
         ),
         title: Text(
           'Confirmation',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
         ),
       ),
       body: Container(

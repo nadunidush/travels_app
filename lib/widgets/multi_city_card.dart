@@ -59,7 +59,7 @@ class _MultiCityCardState extends State<MultiCityCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: TextField(
+              child: TextFormField(
                 controller: _fromController,
                 decoration: InputDecoration(
                   filled: true,
@@ -74,13 +74,18 @@ class _MultiCityCardState extends State<MultiCityCard> {
                 ),
                 onChanged: (value) {
                   widget.onFromChanged(value, widget.index);},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Flying From cannot be empty';
+                  }
+                },
               ),
             ),
             SizedBox(
               width: 8,
             ),
             Expanded(
-              child: TextField(
+              child: TextFormField(
                 controller: _toController,
                 decoration: InputDecoration(
                   filled: true,
@@ -99,6 +104,11 @@ class _MultiCityCardState extends State<MultiCityCard> {
                 onChanged: (value) {
                   widget.onToChanged(value, widget.index);
                 },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Flying To cannot be empty';
+                  }
+                },
               ),
             ),
           ],
@@ -108,7 +118,7 @@ class _MultiCityCardState extends State<MultiCityCard> {
         ),
         Container(
           width: 190,
-          child: TextField(
+          child: TextFormField(
             readOnly: true,
             controller: _dateController,
             decoration: InputDecoration(
@@ -130,6 +140,11 @@ class _MultiCityCardState extends State<MultiCityCard> {
               //label: Text("Flying From")
             ),
             onTap: () => _selectDate(context),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Date cannot be empty';
+              }
+            },
           ),
         ),
         SizedBox(

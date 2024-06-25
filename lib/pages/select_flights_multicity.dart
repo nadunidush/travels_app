@@ -6,7 +6,8 @@ import 'package:travels_app/widgets/flight_arrive_card.dart';
 
 class SelectFlightsMulticity extends StatefulWidget {
   final List<Map<String, String>> flights;
-  const SelectFlightsMulticity({super.key, required this.flights});
+  final String docId;
+  const SelectFlightsMulticity({super.key, required this.flights, required this.docId});
 
   @override
   State<SelectFlightsMulticity> createState() => _SelectFlightState();

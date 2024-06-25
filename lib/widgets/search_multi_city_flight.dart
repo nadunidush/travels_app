@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travels_app/pages/select_flights_multicity.dart';
 import 'package:travels_app/widgets/multi_city_card.dart';
@@ -22,7 +24,7 @@ class _SearchMyltiCityFlightState extends State<SearchMyltiCityFlight> {
     });
   }
 
-  void _updateFlightFrom(String from, int index) {
+  void _updateFlightFrom(String from, int index) { 
     setState(() {
       multiCityFlights[index]["from"] = from;
     });
@@ -40,14 +42,47 @@ class _SearchMyltiCityFlightState extends State<SearchMyltiCityFlight> {
     });
   }
 
-  void _searchFlights() {
+  Future<void> _saveSearchData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      print("User is not logged!");
+      return;
+    }
+    String uid = user.uid;
+    CollectionReference flights =
+        FirebaseFirestore.instance.collection('multicityFlights');
+    for (var flight in multiCityFlights) {
+      if (flight['from']!.isEmpty || flight['to']!.isEmpty || flight['date']!.isEmpty) {
+        // Show an error message or handle the empty date case
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Flights details cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+      await flights.add({
+        'flyingFrom': flight['from'],
+        'flyingTo': flight['to'],
+        'selectDate': flight['date'],
+        'uid': uid,
+      });
+    }
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SelectFlightsMulticity(flights: multiCityFlights,),
+        builder: (context) =>
+            SelectFlightsMulticity(flights: multiCityFlights,docId: flights.id,),
       ),
     );
+
+    print("Data saved successfully.");
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +130,7 @@ class _SearchMyltiCityFlightState extends State<SearchMyltiCityFlight> {
                 backgroundColor: const Color.fromARGB(255, 244, 168, 54),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5))),
-            onPressed: _searchFlights,
+            onPressed: _saveSearchData,
             child: Text(
               "Search",
               style: TextStyle(

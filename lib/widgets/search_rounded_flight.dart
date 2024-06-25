@@ -76,6 +76,52 @@ class _SearchOneWayFlightState extends State<SearchRoundedFlight> {
     String children = _childernController.text;
     String dateRange = _dateRangeController.text;
 
+    if (flyingFrom.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Flight From cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return;
+    }
+    if (flyingTo.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Flight To cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return;
+    };
+    if (adults.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Adult cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return;
+       };
+       
+    if (children.isEmpty) {
+       ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Childern cannot be empty',style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
+            backgroundColor: Colors.red,
+          ),
+        );
+         return null;
+       };
+
     DocumentReference docRef = await FirebaseFirestore.instance.collection('flights').add({
       'flyingFrom': flyingFrom,
       'flyingTo': flyingTo,
