@@ -26,83 +26,85 @@ class SelectSignUpAndSignIn extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 100,
-                ),
-                Text("Enjoy The Travel \nWith Us",
-                    style: TextStyle(
-                      fontSize: 36,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    )),
-                SizedBox(
-                  height: 180,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(Size(230, 50)),
-                      backgroundColor: MaterialStateProperty.all(Colors.orange),
-                    ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (context) => SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).viewInsets.bottom,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Text("Enjoy The Travel \nWith Us",
+                      style: TextStyle(
+                        fontSize: 36,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      )),
+                  SizedBox(
+                    height: 180,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 60.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(Size(230, 50)),
+                        backgroundColor: MaterialStateProperty.all(Colors.orange),
+                      ),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) => SingleChildScrollView(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).viewInsets.bottom,
+                              ),
+                              child: SignUp(),
                             ),
-                            child: SignUp(),
                           ),
-                        ),
-                      );
-                    },
-                    child: Text("Sign Up",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        )),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(Size(230, 50)),
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                        );
+                      },
+                      child: Text("Sign Up",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          )),
                     ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context, 
-                        builder: (context) => SingleChildScrollView(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom
-                          ),
-                          child: SignIn(),
-                        )
-                      );
-                    },
-                    child: Text("Sign In",
-                        style: TextStyle(
-                          color: Colors.orange,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        )),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 60.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(Size(230, 50)),
+                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                      ),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context, 
+                          builder: (context) => SingleChildScrollView(
+                            padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom
+                            ),
+                            child: SignIn(),
+                          )
+                        );
+                      },
+                      child: Text("Sign In",
+                          style: TextStyle(
+                            color: Colors.orange,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          )),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

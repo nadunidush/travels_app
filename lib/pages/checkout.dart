@@ -208,7 +208,7 @@ class _CheckOutState extends State<CheckOut> {
                     TextField(
                       controller: cardNumberController,
                       keyboardType: TextInputType.number,
-                      inputFormatters: [maskFormatter],
+                      //inputFormatters: [maskFormatter],
                       style: TextStyle(
                           fontSize: 19, fontWeight: FontWeight.w700),
                       decoration: InputDecoration(

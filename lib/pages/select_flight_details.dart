@@ -184,7 +184,7 @@ class FlightDetailsPage extends StatelessWidget {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image.network(
-                              "https://w0.peakpx.com/wallpaper/247/87/HD-wallpaper-take-off-plane-sunset-view-thumbnail.jpg",
+                              "https://img.freepik.com/premium-photo/top-view-white-toy-airplane-model-blue-color-background-with-concept-travel_43448-317.jpg?w=360",
                               height: 300,
                             ))),
                   ],
