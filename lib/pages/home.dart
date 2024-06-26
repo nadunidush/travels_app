@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travels_app/auth/auth_services.dart';
 import 'package:travels_app/pages/plan_destination_flight.dart';
+import 'package:travels_app/pages/plan_destination_vehicle.dart';
 import 'package:travels_app/pages/select_signup_signin.dart';
 import 'package:travels_app/pages/welcome_page.dart';
 
@@ -149,7 +150,9 @@ class _HomeState extends State<Home> {
                                     width: 10,
                                   ),
                                   GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => DestinationVehicle()));
+                                      },
                                       child: Text(
                                         "Vehicle",
                                         style: TextStyle(
