@@ -46,6 +46,38 @@ class _BookVehicleDetailsState extends State<BookVehicleDetails> {
           'https://stimg.cardekho.com/images/carinteriorimages/930x620/Toyota/Belta/8705/1638349818088/dashboard-59.jpg?impolicy=resize&imwidth=420',
       '3':
           'https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cdni.autocarindia.com/ExtraImages/20211119040309_Toyota_Belta_4.jpg&w=700&c=1',
+    },
+    {
+      'carName': 'Perodua Viva Elite',
+      '1': 'https://imgcdn.zigwheels.lk/large/gallery/interior/17/136/perodua-viva-elite-front-and-rear-seats-together.jpg',
+      '2':
+          'https://imgcdn.zigwheels.lk/large/gallery/interior/17/136/perodua-viva-elite-dashboard-view.jpg',
+      '3':
+          'https://img.carswp.com/perodua/viva/photos_perodua_viva_2009_1.jpg',
+    },
+    {
+      'carName': 'Mazda Axela',
+      '1': 'https://cars.usnews.com/static/images/Auto/custom/15310/2024_Mazda3_Dashboard_1.jpg',
+      '2':
+          'https://www.mazda.com.au/49a984/globalassets/settings/vehicle-assets/mazda3/2023-05-ipm---bt2/ext360/hatch/01.-g20-pure/25d-snowflake-white/mazv1684_mazda3_g20_pure_hatch_auto_snowflake_white_pearl_bjgsaae_980x452_0022.png',
+      '3':
+          'https://s1.cdn.autoevolution.com/images/gallery/MAZDA-3---Axela-Hatchback-294_27.jpg',
+    },
+    {
+      'carName': 'Toyota Allion',
+      '1': 'https://sbimotor.com/uploads/car/images/45841/3400132_big_2efe38c2.jpg',
+      '2':
+          'https://www.batfa.com/photo-newcar-axelahybrid-interior.files/AxelaHybrid-interior.jpg',
+      '3':
+          'https://www.autocourt.net.nz/Motorcentral/VehicleData/AUT-a4d91dac-b9d5-46f5-bb69-3b25e5ab7170-19.jpg',
+    },
+    {
+      'carName': 'Honda Fit',
+      '1': 'https://cars.usnews.com/static/images/Auto/custom/13585/2018_Honda_Fit_1.jpg',
+      '2':
+          'https://cdn.dlron.us/static/dealer-16496/2018-honda-fit-interior-1024x507.jpg',
+      '3':
+          'https://cars.usnews.com/static/images/Auto/izmo/i159423547/2020_honda_fit_rearview.jpg',
     }
   ];
 
@@ -505,6 +537,7 @@ class _BookVehicleDetailsState extends State<BookVehicleDetails> {
                           MaterialPageRoute(
                               builder: (context) => CheckOut(
                                     price: totalRentPrice,
+                                    origin: 'vehicle',
                                   )));
                     },
                     child: Text(

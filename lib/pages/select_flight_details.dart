@@ -203,6 +203,7 @@ class FlightDetailsPage extends StatelessWidget {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => CheckOut(
                           price: price,
+                          origin: "flight",
                         )));
                   },
                   child: Text(

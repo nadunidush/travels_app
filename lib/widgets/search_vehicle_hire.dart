@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travels_app/pages/book_car_hire.dart';
+import 'package:travels_app/pages/book_van_hire.dart';
 
 class SearchVehicleHire extends StatefulWidget {
   const SearchVehicleHire({super.key});
@@ -63,6 +64,14 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
           context,
           MaterialPageRoute(
               builder: (context) => BookCarHire(
+                    docId: docRef.id,
+                  )));
+    }
+    if (valueChoose == "Van") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookVanHire(
                     docId: docRef.id,
                   )));
     }

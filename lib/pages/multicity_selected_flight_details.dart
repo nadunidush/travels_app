@@ -103,6 +103,7 @@ class MulticitySelectedFlightDetails extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CheckOut(
                     price:  totalPrice,
+                    origin: "flight",
                   )));
             },
             child: Text(

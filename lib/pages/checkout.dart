@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:travels_app/pages/flight_confirmation.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:travels_app/pages/vehicle_confirmation.dart';
 
-class CheckOut extends StatefulWidget {
+class CheckOut extends StatelessWidget {
   int price;
-  CheckOut({super.key, required this.price});
+  String origin;
+  CheckOut({super.key, required this.price, required this.origin});
 
-  @override
-  State<CheckOut> createState() => _CheckOutState();
-}
-
-class _CheckOutState extends State<CheckOut> {
   final TextEditingController holderNameController = TextEditingController();
+
   final TextEditingController cardNumberController = TextEditingController();
+
   final TextEditingController expireDateController = TextEditingController();
+
   final TextEditingController cvvController = TextEditingController();
 
   final maskFormatter = MaskTextInputFormatter(
     mask: '#### #### #### ####',
-    filter: { "#": RegExp(r'[0-9]') },
+    filter: {"#": RegExp(r'[0-9]')},
   );
 
   //holdername validate
@@ -74,32 +74,11 @@ class _CheckOutState extends State<CheckOut> {
     return null;
   }
 
-  void validateInputs() {
-    final holderNameError = validateCardHolderName(holderNameController.text);
-    final carNumberError = validateCardNumber(cardNumberController.text);
-    final expireDateError = validateExpiryDate(expireDateController.text);
-    final cvvError = validateCVV(cvvController.text);
-
-    if (holderNameError == null &&
-        carNumberError == null &&
-        expireDateError == null &&
-        cvvError == null) {
-      final snackBar = SnackBar(content: Text("Card Detail valid:)"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => FlightConfirmation()));
-    } else {
-      final snackBar = SnackBar(
-          content: Text(
-              "Errors:\n${holderNameError ?? ''}\n${carNumberError ?? ''}\n${expireDateError ?? ''}\n${cvvError ?? ''}"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
-
+  // void validateInputs() {
   @override
   Widget build(BuildContext context) {
     int farTax = 160;
-    int totalAmount = widget.price + farTax;
+    int totalAmount = price + farTax;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 244, 168, 54),
@@ -126,7 +105,7 @@ class _CheckOutState extends State<CheckOut> {
               SizedBox(
                 height: 5,
               ),
-    
+
               //select the card to checkouts
               Container(
                 height: 70,
@@ -166,7 +145,7 @@ class _CheckOutState extends State<CheckOut> {
                   ],
                 ),
               ),
-    
+
               //selected card details container
               SizedBox(
                 height: 10,
@@ -185,13 +164,13 @@ class _CheckOutState extends State<CheckOut> {
                   children: [
                     Text(
                       "Card Holder Name",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 168, 168, 168)),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 168, 168, 168)),
                     ),
                     TextField(
                       controller: holderNameController,
-                      style: TextStyle(
-                          fontSize: 19, fontWeight: FontWeight.w700),
+                      style:
+                          TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey))),
@@ -209,8 +188,8 @@ class _CheckOutState extends State<CheckOut> {
                       controller: cardNumberController,
                       keyboardType: TextInputType.number,
                       //inputFormatters: [maskFormatter],
-                      style: TextStyle(
-                          fontSize: 19, fontWeight: FontWeight.w700),
+                      style:
+                          TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey))),
@@ -233,10 +212,9 @@ class _CheckOutState extends State<CheckOut> {
                               child: TextField(
                                 controller: expireDateController,
                                 style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.w700),
+                                    fontSize: 19, fontWeight: FontWeight.w700),
                                 decoration: InputDecoration(
-                                  hintText: "MM/YY",
+                                    hintText: "MM/YY",
                                     focusedBorder: UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.grey))),
@@ -258,8 +236,7 @@ class _CheckOutState extends State<CheckOut> {
                                 controller: cvvController,
                                 keyboardType: TextInputType.number,
                                 style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.w700),
+                                    fontSize: 19, fontWeight: FontWeight.w700),
                                 decoration: InputDecoration(
                                     focusedBorder: UnderlineInputBorder(
                                         borderSide:
@@ -273,7 +250,7 @@ class _CheckOutState extends State<CheckOut> {
                   ],
                 ),
               ),
-    
+
               //price of the ticket and the tax pays
               SizedBox(
                 height: 10,
@@ -298,7 +275,7 @@ class _CheckOutState extends State<CheckOut> {
                               color: Color.fromARGB(255, 168, 168, 168),
                             )),
                         Text(
-                          "\$${widget.price}",
+                          "\$$price",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
@@ -355,11 +332,11 @@ class _CheckOutState extends State<CheckOut> {
                   ],
                 ),
               ),
-    
+
               SizedBox(
                 height: 10,
               ),
-    
+
               //Process button
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -370,7 +347,33 @@ class _CheckOutState extends State<CheckOut> {
                     ),
                     backgroundColor: const Color.fromARGB(255, 244, 168, 54),
                   ),
-                  onPressed: validateInputs,
+                  onPressed: (){
+                    final holderNameError = validateCardHolderName(holderNameController.text);
+                    final carNumberError = validateCardNumber(cardNumberController.text);
+                    final expireDateError = validateExpiryDate(expireDateController.text);
+                    final cvvError = validateCVV(cvvController.text);
+
+                    if (holderNameError == null &&
+                        carNumberError == null &&
+                        expireDateError == null &&
+                        cvvError == null) {
+                      if (origin == 'flight') {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => FlightConfirmation()));
+                      }else if(origin == 'vehicle'){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VehicleConfirmation()));
+                      }
+
+                      final snackBar = SnackBar(content: Text("Card Detail valid:)"));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                    } else {
+                      final snackBar = SnackBar(
+                          content: Text(
+                              "Errors:\n${holderNameError ?? ''}\n${carNumberError ?? ''}\n${expireDateError ?? ''}\n${cvvError ?? ''}"));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
                   child: Text(
                     "Processed",
                     style: TextStyle(
