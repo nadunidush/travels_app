@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travels_app/widgets/search_driver_with_vehicle.dart';
 import 'package:travels_app/widgets/search_vehicle_hire.dart';
 
 class DestinationVehicle extends StatefulWidget {
@@ -37,14 +38,14 @@ class _DestinationVehicleState extends State<DestinationVehicle> {
               indicatorSize: TabBarIndicatorSize.label,
                tabs: [
                 Tab(text: 'Only Vehicle Hire'),
-                Tab(text: "Vechile Hire With Driver"),
+                Tab(text: "Vehicle Hire With Driver"),
                ],
             ),
             Expanded(
               child: TabBarView(
                 children: [
                    SearchVehicleHire(),
-                   Text("hellow")
+                   SearchDriverWithVehicle(),
                 ]
               ),
             )

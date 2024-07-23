@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:travels_app/pages/book_car_hire.dart';
 import 'package:travels_app/pages/book_van_hire.dart';
 
-class SearchVehicleHire extends StatefulWidget {
-  const SearchVehicleHire({super.key});
+class SearchDriverWithVehicle extends StatefulWidget {
+  const SearchDriverWithVehicle({super.key});
 
   @override
-  State<SearchVehicleHire> createState() => _SearchVehicleHireState();
+  State<SearchDriverWithVehicle> createState() => _SearchDriverWithVehicleState();
 }
 
-class _SearchVehicleHireState extends State<SearchVehicleHire> {
+class _SearchDriverWithVehicleState extends State<SearchDriverWithVehicle> {
   final fromVehicleController = TextEditingController();
   final fromTimeController = TextEditingController();
   final toVehicleController = TextEditingController();
@@ -105,45 +105,22 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
       return;
     }
 
-
     String uid = user.uid;
     String fromVehicle = fromVehicleController.text;
     String fromTime = fromTimeController.text;
     String toVehicle = toVehicleController.text;
     String toTime = toTimeController.text;
-    String pickupLocation = pickUpLocationController.text;
+    String pickUpLocation = pickUpLocationController.text;
     String vehicleType = valueChoose as String;
     String tripLocation = tripLocationController.text;
 
-    if (fromVehicle.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          'PickUp Date cannot be empty',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.red,
-      ));
-      return;
-    }
-
-    if (tripLocation.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          'Trip Location cannot be empty',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.red,
-      ));
-      return;
-    }
-
     DocumentReference docRef =
-        await FirebaseFirestore.instance.collection("searchOnlyVehicle").add({
+        await FirebaseFirestore.instance.collection("searchDriverWithVehicle").add({
       'from': fromVehicle,
       'fromTime': fromTime,
       'to': toVehicle,
       'toTime': toTime,
-      'pickupLocation': pickupLocation,
+      'pickupLocation': pickUpLocation,
       'vehicleType': valueChoose,
       'tripLocation': tripLocation,
       'uid': uid,
@@ -165,6 +142,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
                     docId: docRef.id,
                   )));
     }
+
     print("Data saved successfully.");
   }
 
@@ -180,7 +158,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
       setState(() {
         fromVehicleController.text = picked.toString().split(" ")[0];
       });
-    } 
+    }
   }
 
   //datepicker return
@@ -195,7 +173,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
       setState(() {
         toVehicleController.text = picked.toString().split(" ")[0];
       });
-    } 
+    }
   }
 
   //pick the pickup time
@@ -208,7 +186,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
       setState(() {
         fromTimeController.text = picked.format(context);
       });
-    } 
+    }
   }
 
   //pick the return time
@@ -221,7 +199,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
       setState(() {
         toTimeController.text = picked.format(context);
       });
-    } 
+    }
   }
 
   @override
@@ -270,7 +248,9 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
                 hintText: "Pickup Time",
               ),
               readOnly: true,
-              onTap: _selectPickUpTime,
+              onTap: () {
+                _selectPickUpTime();
+              },
             ),
 
             SizedBox(
@@ -338,7 +318,9 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
               ),
             ),
 
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 35,
+            ),
             //vehicleType
             Padding(
               padding: const EdgeInsets.only(left: 6.0),
@@ -367,7 +349,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
                     }).toList(),
                     onChanged: (newValue) {
                       setState(() {
-                        valueChoose = newValue.toString();
+                        valueChoose = newValue as String?;
                       });
                     }),
               ),
@@ -393,7 +375,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
             ),
 
             SizedBox(
-              height: 35,
+              height: 25,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(

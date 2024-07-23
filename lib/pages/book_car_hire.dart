@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travels_app/pages/book_vehicle_details.dart';
+import 'package:travels_app/pages/book_car_details.dart';
 import 'package:travels_app/widgets/onlyCarCard.dart';
 
 class BookCarHire extends StatefulWidget {

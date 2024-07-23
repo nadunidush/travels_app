@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:travels_app/pages/book_vehicle_details.dart';
+import 'package:travels_app/pages/book_driver_vehicle_details.dart';
+import 'package:travels_app/pages/book_car_details.dart';
+import 'package:travels_app/pages/book_van_details.dart';
 
 class OnlyCarCard extends StatelessWidget {
   String carImage;
@@ -9,7 +12,81 @@ class OnlyCarCard extends StatelessWidget {
   String carKm;
   String docId;
 
-  OnlyCarCard({super.key, required this.carImage, required this.carName, required this.carLogo, required this.carRentPrice, required this.carKm, required this.docId});
+  OnlyCarCard(
+      {super.key,
+      required this.carImage,
+      required this.carName,
+      required this.carLogo,
+      required this.carRentPrice,
+      required this.carKm,
+      required this.docId});
+
+  void checkAndNavigate(BuildContext context) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // Fetching data from the first collection
+    DocumentSnapshot firstCollectionDoc =
+        await firestore.collection('searchOnlyVehicle').doc(docId).get();
+
+    if (firstCollectionDoc.exists) {
+      String vehicleType = firstCollectionDoc.get('vehicleType');
+      if (vehicleType == 'Car') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookCarDetails(
+                  carName: carName,
+                  carRentPrice: carRentPrice,
+                  carKm: carKm,
+                  docId: docId)),
+        );
+        return; // Exit the function early if the first condition is met
+      }
+      if (vehicleType == 'Van') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookVanDetails(
+                  carName: carName,
+                  carRentPrice: carRentPrice,
+                  carKm: carKm,
+                  docId: docId)),
+        );
+        return; // Exit the function early if the first condition is met
+      }
+    }
+
+    // Fetching data from the second collection if not found in the first
+    DocumentSnapshot secondCollectionDoc =
+        await firestore.collection('searchDriverWithVehicle').doc(docId).get();
+
+    if (secondCollectionDoc.exists) {
+      String driverVehicleType = secondCollectionDoc.get('vehicleType');
+      if (driverVehicleType == 'Car') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookDriverVehicleDetails(
+                  carName: carName,
+                  carRentPrice: carRentPrice,
+                  carKm: carKm,
+                  docId: docId)),
+        );
+      } else {
+        // Show a message if no matching document is found in both collections
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text('No matching vehicle type found in both collections')),
+        );
+      }
+    } else {
+      // Show a message if no matching document is found in both collections
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Document not found in both collections')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +101,9 @@ class OnlyCarCard extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.shade600, spreadRadius: 1, blurRadius: 7),
+                    color: Colors.grey.shade600,
+                    spreadRadius: 1,
+                    blurRadius: 7),
               ],
             ),
             child: Column(
@@ -45,7 +124,8 @@ class OnlyCarCard extends StatelessWidget {
                       padding: const EdgeInsets.all(12.0),
                       child: Text(
                         "$carName",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
@@ -111,8 +191,8 @@ class OnlyCarCard extends StatelessWidget {
                           ),
                           Text(
                             "km/Day",
-                            style:
-                                TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                         ]),
                       ),
@@ -156,20 +236,11 @@ class OnlyCarCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.only(
                             top: 10, bottom: 10, left: 30, right: 30),
-                        backgroundColor: const Color.fromARGB(255, 244, 168, 54),
+                        backgroundColor:
+                            const Color.fromARGB(255, 244, 168, 54),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5))),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BookVehicleDetails(
-                                carName: carName,
-                                carRentPrice: carRentPrice,
-                                carKm: carKm,
-                                docId: docId ,
-                              )));
-                    },
+                    onPressed: () => checkAndNavigate(context),
                     child: Text(
                       "BOOK NOW",
                       style: TextStyle(
@@ -211,7 +282,9 @@ class OnlyCarCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
       ],
     );
   }

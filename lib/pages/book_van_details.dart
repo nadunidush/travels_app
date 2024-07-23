@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travels_app/pages/checkout.dart';
 
-class BookVehicleDetails extends StatefulWidget {
+class BookVanDetails extends StatefulWidget {
   String carName;
   int carRentPrice;
   String carKm;
   String docId;
-  BookVehicleDetails(
+  BookVanDetails(
       {super.key,
       required this.carName,
       required this.carRentPrice,
@@ -15,10 +15,10 @@ class BookVehicleDetails extends StatefulWidget {
       required this.docId});
 
   @override
-  State<BookVehicleDetails> createState() => _BookVehicleDetailsState();
+  State<BookVanDetails> createState() => _BookVanDetailsState();
 }
 
-class _BookVehicleDetailsState extends State<BookVehicleDetails> {
+class _BookVanDetailsState extends State<BookVanDetails> {
   late Future<DocumentSnapshot> _vehicleDataFuture;
 
   @override
@@ -29,55 +29,55 @@ class _BookVehicleDetailsState extends State<BookVehicleDetails> {
         .doc(widget.docId)
         .get();
   }
-  List<Map<String, String>> images = [
+  List<Map<String, String>> imagesVan = [
     {
-      'carName': 'Mercedes AMG GT',
+      'carName': 'Toyota Hiace',
       '1':
-          'https://hips.hearstapps.com/hmg-prod/images/2024-mercedes-amg-gt-coupe-interior-122-64da40b809fe6.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGx3wKgVWXKhiR-Taf181YojtvB6AMFBHpg&s',
       '2':
-          'https://hips.hearstapps.com/hmg-prod/images/2024-mercedes-amg-gt-coupe-interior-120-64da40b774dd2.jpg?crop=1xw:1xh;center,top&resize=980:*',
+          'https://imgcdn.oto.com/large/gallery/interior/38/801/toyota-hiace-rd-row-seat-710162.jpg',
       '3':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Ym2D7JEH1bYNqVYQ-jiwyV3ZKX8FnPGtTQ&s',
+          'https://img.indianautosblog.com/2017/08/Toyota-Hiace-Luxury-at-GIIAS-2017-rear-view.jpg',
     },
     {
-      'carName': 'Toyota Belta',
-      '1': 'https://www.gari.pk/images/new/cars/2022-02/1543_1_27933.jpg',
+      'carName': "Susuki every buddy",
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIa1dcGx5-WZMmCVjqwz50agaDdYrxBEUGtA&s',
       '2':
-          'https://stimg.cardekho.com/images/carinteriorimages/930x620/Toyota/Belta/8705/1638349818088/dashboard-59.jpg?impolicy=resize&imwidth=420',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSijq9VLob_Du7S9iluuSxO3kftmUss3mNbiQ&s',
       '3':
-          'https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cdni.autocarindia.com/ExtraImages/20211119040309_Toyota_Belta_4.jpg&w=700&c=1',
+          'https://i.pinimg.com/736x/28/20/21/282021a320875475ddcf1e44a2da288e.jpg',
     },
     {
-      'carName': 'Perodua Viva Elite',
-      '1': 'https://imgcdn.zigwheels.lk/large/gallery/interior/17/136/perodua-viva-elite-front-and-rear-seats-together.jpg',
+      'carName': 'KDH Van',
+      '1': 'https://luxurykdhvanhireservice.com/wp-content/uploads/2023/06/WhatsApp-Image-2023-06-23-at-12.14.13-PM-2.jpeg',
       '2':
-          'https://imgcdn.zigwheels.lk/large/gallery/interior/17/136/perodua-viva-elite-dashboard-view.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMsNF5LaeAUPPibX83LXIZ27SBaDGEkSHvwQ&s',
       '3':
-          'https://img.carswp.com/perodua/viva/photos_perodua_viva_2009_1.jpg',
+          'https://i.pinimg.com/736x/8c/54/f4/8c54f4184a1f6eb83bc15932a4a568ba.jpg',
     },
     {
-      'carName': 'Mazda Axela',
-      '1': 'https://cars.usnews.com/static/images/Auto/custom/15310/2024_Mazda3_Dashboard_1.jpg',
+      'carName': 'Toyota Dolphin Van',
+      '1': 'https://riyasewana.com/uploads/toyota-dolphin-long-2219191117475.jpg',
       '2':
-          'https://www.mazda.com.au/49a984/globalassets/settings/vehicle-assets/mazda3/2023-05-ipm---bt2/ext360/hatch/01.-g20-pure/25d-snowflake-white/mazv1684_mazda3_g20_pure_hatch_auto_snowflake_white_pearl_bjgsaae_980x452_0022.png',
+          'https://icabs.lk/wp-content/uploads/2018/07/026-06.jpg',
       '3':
-          'https://s1.cdn.autoevolution.com/images/gallery/MAZDA-3---Axela-Hatchback-294_27.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3JBfhg5izP3f2tkEHZVfW1XXu5WYq9GBgDw&s',
     },
     {
-      'carName': 'Toyota Allion',
-      '1': 'https://sbimotor.com/uploads/car/images/45841/3400132_big_2efe38c2.jpg',
+      'carName': 'Nissan Caravan Super DX',
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRObukPF_pWxrvu6BzdnCrwGUSWAgdkCeEO0Q&s',
       '2':
-          'https://www.batfa.com/photo-newcar-axelahybrid-interior.files/AxelaHybrid-interior.jpg',
+          'https://www.dubicars.com/images/4d3652/w_1300x760/perfect-motors-fzco/d9d9d215-ccc9-4443-80af-1a9912b9f94e.jpg',
       '3':
-          'https://www.autocourt.net.nz/Motorcentral/VehicleData/AUT-a4d91dac-b9d5-46f5-bb69-3b25e5ab7170-19.jpg',
+          'https://picture1.goo-net.com/070/0702688/J/0702688A30231227W01406.jpg',
     },
     {
-      'carName': 'Honda Fit',
-      '1': 'https://cars.usnews.com/static/images/Auto/custom/13585/2018_Honda_Fit_1.jpg',
+      'carName': 'Toyota KDH High Roof ',
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN4lqfjjhuX2dM75YiftQlMlY6P42_aeo3bA&s',
       '2':
-          'https://cdn.dlron.us/static/dealer-16496/2018-honda-fit-interior-1024x507.jpg',
+          'https://luxurykdhvanhireservice.com/wp-content/uploads/2023/06/WhatsApp-Image-2023-06-23-at-12.14.14-PM.jpeg',
       '3':
-          'https://cars.usnews.com/static/images/Auto/izmo/i159423547/2020_honda_fit_rearview.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjKAyqRHPssfTCzH1lOd0zyq341kDU_wi0MA&s',
     }
   ];
 
@@ -88,15 +88,15 @@ class _BookVehicleDetailsState extends State<BookVehicleDetails> {
   Widget build(BuildContext context) {
     // Find the map that matches the carName
     Map<String, String>? selectedCarMap;
-    for (var i = 0; i < images.length; i++) {
-      if (widget.carName == images[i]['carName']) {
-        selectedCarMap = images[i];
+    for (var i = 0; i < imagesVan.length; i++) {
+      if (widget.carName == imagesVan[i]['carName']) {
+        selectedCarMap = imagesVan[i];
         break;
       }
     }
 
     // If the car is found, extract the image URLs for the keys '1', '2', and '3'
-    final imageUrls = selectedCarMap?.entries
+    final imageUrlsVans = selectedCarMap?.entries
             .where((entry) =>
                 entry.key == '1' || entry.key == '2' || entry.key == '3')
             .map((entry) => entry.value as String)
@@ -163,14 +163,14 @@ class _BookVehicleDetailsState extends State<BookVehicleDetails> {
                           activePage = value;
                         });
                       },
-                      itemCount: imageUrls.length,
+                      itemCount: imageUrlsVans.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.network(
-                                imageUrls[index],
+                                imageUrlsVans[index],
                                 height: 200,
                                 fit: BoxFit.cover,
                               )),
@@ -186,7 +186,7 @@ class _BookVehicleDetailsState extends State<BookVehicleDetails> {
                     height: 35,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: imageUrls.length,
+                        itemCount: imageUrlsVans.length,
                         itemBuilder: (context, index) {
                           return Padding(
                               padding: const EdgeInsets.all(10.0),
