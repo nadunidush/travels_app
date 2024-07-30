@@ -72,7 +72,7 @@ class _SignInState extends State<SignIn> {
             Row(
               children: [
                 Text(
-                  "Welcome Back \nNadun",
+                  "Welcome Back \nTraveler",
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w700,
@@ -81,9 +81,9 @@ class _SignInState extends State<SignIn> {
                 Spacer(),
                 ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.asset(
-                      "assets/profile2.webp",
-                      width: 70,
+                    child: Image.network(
+                      "https://img.freepik.com/premium-photo/hiking-logo-with-vibrant-mountain-silhouette-sunset_899449-68039.jpg",
+                      width: 90,
                     )),
               ],
             ),

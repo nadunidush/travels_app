@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:travels_app/pages/book_driver_vehicle_details.dart';
+import 'package:travels_app/pages/book_driver_bus_details.dart';
+import 'package:travels_app/pages/book_driver_car_details.dart';
 import 'package:travels_app/pages/book_car_details.dart';
+import 'package:travels_app/pages/book_driver_van_details.dart';
 import 'package:travels_app/pages/book_van_details.dart';
 
 class OnlyCarCard extends StatelessWidget {
@@ -66,13 +68,33 @@ class OnlyCarCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => BookDriverVehicleDetails(
+              builder: (context) => BookDriverCarDetails(
                   carName: carName,
                   carRentPrice: carRentPrice,
                   carKm: carKm,
                   docId: docId)),
         );
-      } else {
+      } else if (driverVehicleType == 'Van') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookDriverVanDetails(
+                  carName: carName,
+                  carRentPrice: carRentPrice,
+                  carKm: carKm,
+                  docId: docId)),
+        );
+      } else if(driverVehicleType == 'Bus') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookDriverBusDetails(
+                  carName: carName,
+                  carRentPrice: carRentPrice,
+                  carKm: carKm,
+                  docId: docId)),
+        );  
+      }else {
         // Show a message if no matching document is found in both collections
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travels_app/pages/checkout.dart';
 
-class BookDriverVehicleDetails extends StatefulWidget {
+class BookDriverVanDetails extends StatefulWidget {
   String carName;
   int carRentPrice;
   String carKm;
   String docId;
-  BookDriverVehicleDetails(
+  BookDriverVanDetails(
       {super.key,
       required this.carName,
       required this.carRentPrice,
@@ -15,10 +15,10 @@ class BookDriverVehicleDetails extends StatefulWidget {
       required this.docId});
 
   @override
-  State<BookDriverVehicleDetails> createState() => _BookDriverVehicleDetailsState();
+  State<BookDriverVanDetails> createState() => _BookDriverVanDetailsState();
 }
 
-class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
+class _BookDriverVanDetailsState extends State<BookDriverVanDetails> {
   late Future<DocumentSnapshot> _vehicleDataFuture;
 
   @override
@@ -29,91 +29,91 @@ class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
         .doc(widget.docId)
         .get();
   }
-  List<Map<String, String>> images = [
+  List<Map<String, String>> imagesVan = [
     {
-      'carName': 'Mercedes AMG GT',
-      'carDriverName':'Kasun Ekanayaka',
-      'carDriverImg':'https://i.pinimg.com/736x/00/49/bf/0049bf07f235946231927cfccf349826.jpg',
-      'carDriverDescription':'Mr. Kasun Ekanayaka, a seasoned tourist guide lecturer with 8 years of expertise and a decade of experience, leads as your top-choice inbound tour operator in Sri Lanka. Our focus is on curating unforgettable holiday tour packages and providing proficient English-speaking drivers well-versed in local insights.',
-      'carDriverLanguage':'English, Hindi',
-      'carDriverEmail':'kasun12@gmail.com',
-      'carDriverPhone':'0754123457',
+      'carName': 'Toyota Hiace ',
+      'carDriverName':'Pivithuru Rathnayaka',
+      'carDriverImg':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPJ4fcOja6DY0XakwUUzw0lP22fAu9Z9wySg&s',
+      'carDriverDescription':'Experience the beauty of Sri Lanka with Pivithuru Rathnayaka, your expert guide with over a decade in the tourism industry. Our specialized team crafts unique holiday packages and provides knowledgeable English-speaking drivers to ensure an unforgettable journey.',
+      'carDriverLanguage':'English, Germen',
+      'carDriverEmail':'pivithuru@gmail.com',
+      'carDriverPhone':'0753728457',
       '1':
-          'https://hips.hearstapps.com/hmg-prod/images/2024-mercedes-amg-gt-coupe-interior-122-64da40b809fe6.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGx3wKgVWXKhiR-Taf181YojtvB6AMFBHpg&s',
       '2':
-          'https://hips.hearstapps.com/hmg-prod/images/2024-mercedes-amg-gt-coupe-interior-120-64da40b774dd2.jpg?crop=1xw:1xh;center,top&resize=980:*',
+          'https://imgcdn.oto.com/large/gallery/interior/38/801/toyota-hiace-rd-row-seat-710162.jpg',
       '3':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Ym2D7JEH1bYNqVYQ-jiwyV3ZKX8FnPGtTQ&s',
+          'https://img.indianautosblog.com/2017/08/Toyota-Hiace-Luxury-at-GIIAS-2017-rear-view.jpg',
     },
     {
-      'carName': 'Toyota Belta',
-      'carDriverName':'Tharindu Perera',
-      'carDriverImg':'https://cdn.pixabay.com/photo/2022/03/11/06/14/indian-man-7061278_1280.jpg',
-      'carDriverDescription':'Mr. Tharindu Perera, a seasoned Mini Coach Driver with an impressive 15-year track record, is your ultimate choice for an exceptional tourist driving experience in Sri Lanka. His fluent English skills and extensive expertise make him the go-to expert for a memorable journey.',
-      'carDriverLanguage':'English',
-      'carDriverEmail':'tharindu42@gmailcom',
-      'carDriverPhone':'0714287392',
-      '1': 'https://www.gari.pk/images/new/cars/2022-02/1543_1_27933.jpg',
+      'carName': 'Susuki every buddy',
+      'carDriverName':'Samantha Perera',
+      'carDriverImg':'https://thumbs.dreamstime.com/b/man-perfect-brilliant-smile-unshaven-face-defocused-background-guy-happy-emotional-expression-outdoors-bearded-man-124640934.jpg',
+      'carDriverDescription':'Experience the beauty of Sri Lanka with Samantha Perera, a dedicated mini coach driver with over 15 years of experience. His exceptional knowledge of the island, coupled with his fluency in English, ensures a smooth and informative journey for every tourist.',
+      'carDriverLanguage':'English, Sinhala',
+      'carDriverEmail':'Samantha76@gmailcom',
+      'carDriverPhone':'0719087332',
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIa1dcGx5-WZMmCVjqwz50agaDdYrxBEUGtA&s',
       '2':
-          'https://stimg.cardekho.com/images/carinteriorimages/930x620/Toyota/Belta/8705/1638349818088/dashboard-59.jpg?impolicy=resize&imwidth=420',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSijq9VLob_Du7S9iluuSxO3kftmUss3mNbiQ&s',
       '3':
-          'https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cdni.autocarindia.com/ExtraImages/20211119040309_Toyota_Belta_4.jpg&w=700&c=1',
+          'https://i.pinimg.com/736x/28/20/21/282021a320875475ddcf1e44a2da288e.jpg',
     },
     {
-      'carName': 'Perodua Viva Elite',
-      'carDriverName':'Supun Dilshan',
-      'carDriverImg':'https://catchmydrift.in/cdn/shop/products/brown-munde-exclusive-t-shirt-for-indian-men-printrove-915207.jpg?v=1686867063&width=1946',
-      'carDriverDescription':'Mr. Supun Dilshan, with a decade of experience, is your premier inbound tour operator and personal driver in Sri Lanka. We specialize in crafting unforgettable holiday tour packages and providing English-speaking drivers with excellent local knowledge, ensuring an exceptional travel experience.',
+      'carName': 'KDH Van',
+      'carDriverName':'Marshala Fernando',
+      'carDriverImg':'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?fm=jpg&w=3000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVuJTIwc21pbGV8ZW58MHx8MHx8fDA%3D',
+      'carDriverDescription':'Discover the heart of Sri Lanka with Marshala Fernando, a seasoned tour operator and driver. With over a decade of experience, we offer personalized itineraries and English-speaking guides who are passionate about sharing the beauty and culture of our island home.',
       'carDriverLanguage':'English',
-      'carDriverEmail':'supunD@gmail.com',
-      'carDriverPhone':'0778612643',
-      '1': 'https://imgcdn.zigwheels.lk/large/gallery/interior/17/136/perodua-viva-elite-front-and-rear-seats-together.jpg',
+      'carDriverEmail':'marshala@gmail.com',
+      'carDriverPhone':'0775412913',
+      '1': 'https://luxurykdhvanhireservice.com/wp-content/uploads/2023/06/WhatsApp-Image-2023-06-23-at-12.14.13-PM-2.jpeg',
       '2':
-          'https://imgcdn.zigwheels.lk/large/gallery/interior/17/136/perodua-viva-elite-dashboard-view.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMsNF5LaeAUPPibX83LXIZ27SBaDGEkSHvwQ&s',
       '3':
-          'https://img.carswp.com/perodua/viva/photos_perodua_viva_2009_1.jpg',
+          'https://i.pinimg.com/736x/8c/54/f4/8c54f4184a1f6eb83bc15932a4a568ba.jpg',
     },
     {
-      'carName': 'Mazda Axela',
-      'carDriverName':'Pasindu Sathsara',
-      'carDriverImg':'https://i.pinimg.com/736x/ab/45/27/ab4527336ab87af4034f5ed5845910d2.jpg',
-      'carDriverDescription':'Sri Lanka Driver Guide Mr. Pasindu Sathsara is committed to providing exceptional and immersive tours of the beautiful island of Sri Lanka. As our founder, Mr. Pasindu Sathsara holds a National Guide license and brings two decades of invaluable experience in the tourism industry, making him a seasoned professional in his field.',
-      'carDriverLanguage':'English',
-      'carDriverEmail':'pasindu@gmailcom',
-      'carDriverPhone':'0785612345',
-      '1': 'https://www.batfa.com/photo-newcar-axelahybrid-interior.files/AxelaHybrid-interior.jpg',
+      'carName': 'Toyota Dolphin Van',
+      'carDriverName':'Cristian Sathsara',
+      'carDriverImg':'https://img.freepik.com/free-photo/handsome-smiling-young-african-man_171337-9650.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1721692800&semt=sph',
+      'carDriverDescription':'Cristian Sathsara offers unforgettable tours of Sri Lanka. As a knowledgeable and experienced guide, he is dedicated to showcasing the island\'s beauty and sharing its rich culture with visitors.',
+      'carDriverLanguage':'English, Sinala',
+      'carDriverEmail':'cristian@gmailcom',
+      'carDriverPhone':'0785649345',
+      '1': 'https://riyasewana.com/uploads/toyota-dolphin-long-2219191117475.jpg',
       '2':
-          'https://www.mazda.com.au/49a984/globalassets/settings/vehicle-assets/mazda3/2023-05-ipm---bt2/ext360/hatch/01.-g20-pure/25d-snowflake-white/mazv1684_mazda3_g20_pure_hatch_auto_snowflake_white_pearl_bjgsaae_980x452_0022.png',
+          'https://icabs.lk/wp-content/uploads/2018/07/026-06.jpg',
       '3':
-          'https://s1.cdn.autoevolution.com/images/gallery/MAZDA-3---Axela-Hatchback-294_27.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3JBfhg5izP3f2tkEHZVfW1XXu5WYq9GBgDw&s',
     },
     {
-      'carName': 'Toyota Allion',
-      'carDriverName':'Shehan Fernando',
-      'carDriverImg':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToonwNT4zbwCyq-k-qAzXexPn6URz3gT4BxQ&s',
-      'carDriverDescription':'Mr. Shehan Fernando, a seasoned professional tour driver with over a decade of experience, takes pride in his profound local knowledge and expertise. Drawing on his in-depth understanding of Sri Lanka\'s culture and history, he ensures an enriching and memorable experience for every traveler.',
-      'carDriverLanguage':'English',
-      'carDriverEmail':'shehan678@gmail.com',
-      'carDriverPhone':'07862318914',
-      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFYr3vAJhEZQnWiL3VnaY2RrC0ln9DRYkmcTtIf8dciRRh_V5HwaP4Sdjhmpix8Ga74EY&usqp=CAU',
+      'carName': 'Nissan Caravan Super DX',
+      'carDriverName':'Chamika Fernando',
+      'carDriverImg':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ1XqjepCtAOy8PgXAPo340O-teHdUd2lXlQ&s',
+      'carDriverDescription':'With over ten years of driving tourists around Sri Lanka, Chamika Fernando offers more than just transportation. His deep understanding of the local culture and history transforms every journey into an enriching adventure.',
+      'carDriverLanguage':'English, Sinala',
+      'carDriverEmail':'chamika98@gmail.com',
+      'carDriverPhone':'07862318734',
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRObukPF_pWxrvu6BzdnCrwGUSWAgdkCeEO0Q&s',
       '2':
-          'https://www.atlasmotorsja.com/wp-content/uploads/2023/10/20230322_111606_9.jpg',
+          'https://www.dubicars.com/images/4d3652/w_1300x760/perfect-motors-fzco/d9d9d215-ccc9-4443-80af-1a9912b9f94e.jpg',
       '3':
-          'https://ineaxmotors.com/wp-content/uploads/2023/06/Toyota-Allion-Ineax-Motors-5.jpg',
+          'https://picture1.goo-net.com/070/0702688/J/0702688A30231227W01406.jpg',
     },
     {
-      'carName': 'Honda Fit',
-      'carDriverName':'Tharaka Sadaruwan',
-      'carDriverImg':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBvqzyx_zoi6q2c0Gd1XnE7wysD9PGOLe3-A&s',
-      'carDriverDescription':'Mr. Tharaka Sadaruwan is dedicated to offering outstanding and immersive tours of the picturesque island of Sri Lanka. With a tourist chauffeur license and more than 10 years of experience in the tourism industry, Mr. Tharaka Sadaruwan is a seasoned professional.',
-      'carDriverLanguage':'English',
-      'carDriverEmail':'tharaka@gmailcom',
-      'carDriverPhone':'07654893919',
-      '1': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Honda_FIT_HYBRID%E3%83%BBF_Comfort_Edition_%28DAA-GP5%29_interior.jpg/1280px-Honda_FIT_HYBRID%E3%83%BBF_Comfort_Edition_%28DAA-GP5%29_interior.jpg',
+      'carName': 'Toyota KDH High Roof ',
+      'carDriverName':'Malshan Gunarathna',
+      'carDriverImg':'https://us.images.westend61.de/0001223343pw/indian-man-smiling-in-city-BLEF12781.jpg',
+      'carDriverDescription':'Malshan Gunarathna, a seasoned driver with over a decade in the tourism industry, invites you to explore the beauty of Sri Lanka. His expert knowledge and dedication ensure an unforgettable journey.',
+      'carDriverLanguage':'English, Hindi',
+      'carDriverEmail':'malshan@gmailcom',
+      'carDriverPhone':'07672893856',
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN4lqfjjhuX2dM75YiftQlMlY6P42_aeo3bA&s',
       '2':
-          'https://cdn.dlron.us/static/dealer-16496/2018-honda-fit-interior-1024x507.jpg',
+          'https://luxurykdhvanhireservice.com/wp-content/uploads/2023/06/WhatsApp-Image-2023-06-23-at-12.14.14-PM.jpeg',
       '3':
-          'https://upload.wikimedia.org/wikipedia/commons/1/12/Honda_FIT_HYBRID%E3%83%BBF_Package_%28DAA-GP5%29_rear.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjKAyqRHPssfTCzH1lOd0zyq341kDU_wi0MA&s',
     }
   ];
 
@@ -124,15 +124,15 @@ class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
   Widget build(BuildContext context) {
     // Find the map that matches the carName
     Map<String, String>? selectedCarMap;
-    for (var i = 0; i < images.length; i++) {
-      if (widget.carName == images[i]['carName']) {
-        selectedCarMap = images[i];
+    for (var i = 0; i < imagesVan.length; i++) {
+      if (widget.carName == imagesVan[i]['carName']) {
+        selectedCarMap = imagesVan[i];
         break;
       }
     }
 
     // If the car is found, extract the image URLs for the keys '1', '2', and '3'
-    final imageUrls = selectedCarMap?.entries
+    final imageUrlsVan = selectedCarMap?.entries
             .where((entry) =>
                 entry.key == '1' || entry.key == '2' || entry.key == '3')
             .map((entry) => entry.value as String)
@@ -209,14 +209,14 @@ class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
                           activePage = value;
                         });
                       },
-                      itemCount: imageUrls.length,
+                      itemCount: imageUrlsVan.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.network(
-                                imageUrls[index],
+                                imageUrlsVan[index],
                                 height: 200,
                                 fit: BoxFit.cover,
                               )),
@@ -232,7 +232,7 @@ class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
                     height: 35,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: imageUrls.length,
+                        itemCount: imageUrlsVan.length,
                         itemBuilder: (context, index) {
                           return Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -431,7 +431,7 @@ class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
                 Container(
                   padding: EdgeInsets.all(12),
                   width: 300,
-                  height:  550,
+                  //height:  550,
                   decoration: BoxDecoration(
                       border: Border.all(
                           width: 2,
@@ -464,7 +464,7 @@ class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
 
                       SizedBox(height: 26,),
                       Padding(
-                        padding: const EdgeInsets.only(left: 28.0),
+                        padding: const EdgeInsets.only(left: 12.0),
                         child: Column(
                           children: [
                             Row(
@@ -480,7 +480,7 @@ class _BookDriverVehicleDetailsState extends State<BookDriverVehicleDetails> {
                               children: [
                                 Icon(Icons.circle_outlined, color: Color.fromARGB(255, 1, 114, 167),),
                                 SizedBox(width: 5,),
-                                Text("Speaking Languages: ", style: TextStyle(fontSize: 16, fontWeight:FontWeight.w400),),
+                                Text("Speake Langs: ", style: TextStyle(fontSize: 16, fontWeight:FontWeight.w400),),
                                 Text(driverLanguages.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),),
                               ],
                             ),

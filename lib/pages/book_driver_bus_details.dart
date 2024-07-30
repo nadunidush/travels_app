@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travels_app/pages/checkout.dart';
 
-class BookVanDetails extends StatefulWidget {
+class BookDriverBusDetails extends StatefulWidget {
   String carName;
   int carRentPrice;
   String carKm;
   String docId;
-  BookVanDetails(
+  BookDriverBusDetails(
       {super.key,
       required this.carName,
       required this.carRentPrice,
@@ -15,70 +15,92 @@ class BookVanDetails extends StatefulWidget {
       required this.docId});
 
   @override
-  State<BookVanDetails> createState() => _BookVanDetailsState();
+  State<BookDriverBusDetails> createState() => _BookDriverBusDetailsState();
 }
 
-class _BookVanDetailsState extends State<BookVanDetails> {
+class _BookDriverBusDetailsState extends State<BookDriverBusDetails> {
   late Future<DocumentSnapshot> _vehicleDataFuture;
 
   @override
   void initState() {
     super.initState();
     _vehicleDataFuture = FirebaseFirestore.instance
-        .collection('searchOnlyVehicle')
+        .collection('searchDriverWithVehicle')
         .doc(widget.docId)
         .get();
   }
-  List<Map<String, String>> imagesVan = [
+  List<Map<String, String>> images = [
     {
-      'carName': 'Toyota Hiace ',
+      'carName': '(A/C)Bus Coaster Rosa',
+      'carDriverName':'Kasun Nanayakara',
+      'carDriverImg':'https://as2.ftcdn.net/v2/jpg/04/28/14/89/1000_F_428148933_dd2iAYezhUhYl0rECNASeKjjmTKbk4ED.jpg',
+      'carDriverDescription':'Mr. Kasun Nanayakara, a seasoned bus driver with a decade of experience, is your go-to choice for seamless and enjoyable group tours in Sri Lanka. With his in-depth knowledge of local routes and attractions, combined with excellent English communication skills, he ensures a memorable experience for all passengers.',
+      'carDriverLanguage':'English, Germen',
+      'carDriverEmail':'kasun82@gmail.com',
+      'carDriverPhone':'0754123457',
       '1':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGx3wKgVWXKhiR-Taf181YojtvB6AMFBHpg&s',
+          'https://assets.mitsubishi-fuso.com/fusoassets/2019/12/Carousel_MB_RosaInterior.jpg',
       '2':
-          'https://imgcdn.oto.com/large/gallery/interior/38/801/toyota-hiace-rd-row-seat-710162.jpg',
+          'https://sbimotor.com/uploads/car/images/359363/e56a0667.jpg',
       '3':
-          'https://img.indianautosblog.com/2017/08/Toyota-Hiace-Luxury-at-GIIAS-2017-rear-view.jpg',
+          'https://www.dubicars.com/images/f86839/w_1300x760/talib-al-jabry/74f5b530-1f0b-414b-aaa8-65b2f20f27d7.jpg',
     },
     {
-      'carName': "Susuki every buddy",
-      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIa1dcGx5-WZMmCVjqwz50agaDdYrxBEUGtA&s',
+      'carName': 'Box Coaster Super Luxury',
+      'carDriverName':'Dilshan Perera',
+      'carDriverImg':'https://www.shutterstock.com/shutterstock/photos/377150785/display_1500/stock-photo-transport-tourism-road-trip-and-people-concept-happy-driver-driving-intercity-bus-and-snowing-377150785.jpg',
+      'carDriverDescription':'Mr. Dilshan Perera, a seasoned bus driver with an impressive 15-year track record, is your ultimate choice for a smooth and enjoyable group tour in Sri Lanka. His fluent English skills and extensive knowledge of the island make him the ideal guide for an unforgettable journey.',
+      'carDriverLanguage':'English',
+      'carDriverEmail':'dilshan87@gmailcom',
+      'carDriverPhone':'0714287392',
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8t6yVEp3SJk5SybCwO-001slF4LHroI_bAg&s',
       '2':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSijq9VLob_Du7S9iluuSxO3kftmUss3mNbiQ&s',
+          'https://www.dubicars.com/images/fbe8c2/w_1300x760/alpha-motors-fze/50e766a8-ac30-46e7-b0a9-aca881d8f0e8.jpg',
       '3':
-          'https://i.pinimg.com/736x/28/20/21/282021a320875475ddcf1e44a2da288e.jpg',
+          'https://gsat.jp/wp-content/uploads/2024/02/2023-TOYOTA-COASTER-4.0L-2229-SEATS-COOLING-BOX10-scaled.jpg',
     },
     {
-      'carName': 'KDH Van',
-      '1': 'https://luxurykdhvanhireservice.com/wp-content/uploads/2023/06/WhatsApp-Image-2023-06-23-at-12.14.13-PM-2.jpeg',
+      'carName': '50 Seater Under Luggage',
+      'carDriverName':'Francis jerad',
+      'carDriverImg':'https://previews.123rf.com/images/vadimgozhda/vadimgozhda1810/vadimgozhda181005659/111177435-smiling-man-driving-tour-bus-professional-driver-young-happy-man-wearing-white-shirt-and-black-tie.jpg',
+      'carDriverDescription':'Mr. Francis Jerad, with a decade of experience behind the wheel, is your expert choice for group tours in Sri Lanka. We specialize in crafting unforgettable group itineraries and providing English-speaking bus drivers with exceptional local knowledge, ensuring a seamless and enjoyable travel experience for all passengers.',
+      'carDriverLanguage':'English',
+      'carDriverEmail':'Francis@gmail.com',
+      'carDriverPhone':'0778612643',
+      '1': 'https://luxurybus.lk/wp-content/uploads/2014/12/50-Seater-Inside-2.jpg',
       '2':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMsNF5LaeAUPPibX83LXIZ27SBaDGEkSHvwQ&s',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmdV_EJbmv861aDQ8JPzsWlbnxpnCGsBFkmw&s',
       '3':
-          'https://i.pinimg.com/736x/8c/54/f4/8c54f4184a1f6eb83bc15932a4a568ba.jpg',
+          'https://thumbs.dreamstime.com/b/back-view-inside-bus-seats-monitor-behind-passenger-seat-luggage-compartment-public-transportation-280375680.jpg',
     },
     {
-      'carName': 'Toyota Dolphin Van',
-      '1': 'https://riyasewana.com/uploads/toyota-dolphin-long-2219191117475.jpg',
+      'carName': '45 Seats Luxury Bus',
+      'carDriverName':'Madushan Sathsara',
+      'carDriverImg':'https://static1.tamilmurasu.com.sg/s3fs-public/articles/2023/11/24/Bus20Captain20Prasad2C20Photo20credits20to20Anusha20Selvamani.jpg',
+      'carDriverDescription':'Mr. Madushan Sathsara, a seasoned bus driver with two decades of experience, offers exceptional group tours of Sri Lanka. As the founder of our company, he brings a wealth of knowledge and ensures a smooth and enjoyable journey for all passengers.',
+      'carDriverLanguage':'English, Sinhala',
+      'carDriverEmail':'madushan@gmailcom',
+      'carDriverPhone':'0785612345',
+      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlX-BJZHswk2qs1ZMsQ7lDDI1fv7H_lN0pcQ&s',
       '2':
-          'https://icabs.lk/wp-content/uploads/2018/07/026-06.jpg',
+          'https://www.nefelibatatravels.com/wp-content/uploads/2018/11/45-seater-bus.jpg',
       '3':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3JBfhg5izP3f2tkEHZVfW1XXu5WYq9GBgDw&s',
+          'https://s.alicdn.com/@sc04/kf/H302162daede24c83ab7a99789f4af48a5.jpg_720x720q50.jpg',
     },
     {
-      'carName': 'Nissan Caravan Super DX',
-      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRObukPF_pWxrvu6BzdnCrwGUSWAgdkCeEO0Q&s',
+      'carName': 'VIP Luxury Bus',
+      'carDriverName':'Pinthushehan Fernando',
+      'carDriverImg':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToonwNT4zbwCyq-k-qAzXexPn6URz3gT4BxQ&s',
+      'carDriverDescription':'Mr. Pinthushehan Fernando, a seasoned bus driver with over a decade of experience, offers a unique blend of transportation and cultural immersion. His deep knowledge of Sri Lankan culture and history, combined with his expertise in navigating the island, ensures an enriching and memorable group tour experience.',
+      'carDriverLanguage':'English',
+      'carDriverEmail':'pinthushehan@gmail.com',
+      'carDriverPhone':'07862318914',
+      '1': 'https://thumbs.dreamstime.com/b/luxury-bus-interior-comfortable-seats-image-luxury-bus-interior-rows-comfortable-seats-toilet-inside-124085134.jpg',
       '2':
-          'https://www.dubicars.com/images/4d3652/w_1300x760/perfect-motors-fzco/d9d9d215-ccc9-4443-80af-1a9912b9f94e.jpg',
+          'https://lh3.googleusercontent.com/proxy/cp4epZobM4Z2nRgZLWoPihXxZLKuDqkEMebU7nFNIBhdvEBIKPU8vClBlHuysPbP4xbl_fyXK1JTnN49vy9di9k0PLaE4tlcZ0PK1TSZWuG_tjj9myK2UQ',
       '3':
-          'https://picture1.goo-net.com/070/0702688/J/0702688A30231227W01406.jpg',
+          'https://d10j3mvrs1suex.cloudfront.net/s:bzglfiles/u/25050/cd2b7a165fb9f0b275e76f6a669bd54613f7d219/original/v1-2.jpg/!!/b%3AW1sidCIsMjcwXSxbInNpemUiLCJwaG90byJdXQ%3D%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.jpg',
     },
-    {
-      'carName': 'Toyota KDH High Roof ',
-      '1': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN4lqfjjhuX2dM75YiftQlMlY6P42_aeo3bA&s',
-      '2':
-          'https://luxurykdhvanhireservice.com/wp-content/uploads/2023/06/WhatsApp-Image-2023-06-23-at-12.14.14-PM.jpeg',
-      '3':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjKAyqRHPssfTCzH1lOd0zyq341kDU_wi0MA&s',
-    }
   ];
 
   int i = 0;
@@ -88,21 +110,31 @@ class _BookVanDetailsState extends State<BookVanDetails> {
   Widget build(BuildContext context) {
     // Find the map that matches the carName
     Map<String, String>? selectedCarMap;
-    for (var i = 0; i < imagesVan.length; i++) {
-      if (widget.carName == imagesVan[i]['carName']) {
-        selectedCarMap = imagesVan[i];
+    for (var i = 0; i < images.length; i++) {
+      if (widget.carName == images[i]['carName']) {
+        selectedCarMap = images[i];
         break;
       }
     }
 
     // If the car is found, extract the image URLs for the keys '1', '2', and '3'
-    final imageUrlsVans = selectedCarMap?.entries
+    final imageUrls = selectedCarMap?.entries
             .where((entry) =>
                 entry.key == '1' || entry.key == '2' || entry.key == '3')
             .map((entry) => entry.value as String)
             .toList() ??
         [];
 
+     
+      String? driverName = selectedCarMap?['carDriverName'];
+      String? driverImage = selectedCarMap?['carDriverImg'];
+      String? driverDescription = selectedCarMap?['carDriverDescription'];
+      String? VehicleType  = selectedCarMap?['carName'];
+      String? driverLanguages  = selectedCarMap?['carDriverLanguage'];
+      String? driverEmail  = selectedCarMap?['carDriverEmail'];
+      String? driverPhone  = selectedCarMap?['carDriverPhone'];
+      // Use driverName and carModel as needed
+ 
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white, size: 30),
@@ -163,14 +195,14 @@ class _BookVanDetailsState extends State<BookVanDetails> {
                           activePage = value;
                         });
                       },
-                      itemCount: imageUrlsVans.length,
+                      itemCount: imageUrls.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.network(
-                                imageUrlsVans[index],
+                                imageUrls[index],
                                 height: 200,
                                 fit: BoxFit.cover,
                               )),
@@ -186,7 +218,7 @@ class _BookVanDetailsState extends State<BookVanDetails> {
                     height: 35,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: imageUrlsVans.length,
+                        itemCount: imageUrls.length,
                         itemBuilder: (context, index) {
                           return Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -373,6 +405,103 @@ class _BookVanDetailsState extends State<BookVanDetails> {
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     ),
                   ],
+                ),
+
+                SizedBox(height: 20,),
+                //Driver Information
+                Text("Driver Information", style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 1, 114, 167),
+                      ),),
+                Container(
+                  padding: EdgeInsets.all(12),
+                  width: 300,
+                  //height:  550,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 2,
+                          color: Color.fromARGB(255, 177, 177, 177)),
+                      borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(driverName.toString(), style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      SizedBox(height: 10,),
+                      //driverimage
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.network(driverImage.toString(),width: 150,)
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Text(driverDescription.toString(),style: TextStyle(
+                        fontSize: 15,
+                        fontWeight:FontWeight.w400,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      textAlign: TextAlign.justify,
+                      ),
+
+                      SizedBox(height: 26,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.circle_outlined, color: Color.fromARGB(255, 1, 114, 167),),
+                                SizedBox(width: 5,),
+                                Text("Vehicle Type: ", style: TextStyle(fontSize: 16, fontWeight:FontWeight.w400),),
+                                Text(VehicleType.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),),
+                              ],
+                            ),
+                            SizedBox(height: 4,),
+                            Row(
+                              children: [
+                                Icon(Icons.circle_outlined, color: Color.fromARGB(255, 1, 114, 167),),
+                                SizedBox(width: 5,),
+                                Text("Speake Langs: ", style: TextStyle(fontSize: 16, fontWeight:FontWeight.w400),),
+                                Text(driverLanguages.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),),
+                              ],
+                            ),
+                            SizedBox(height: 4,),
+                            Row(
+                              children: [
+                                Icon(Icons.circle_outlined, color: Color.fromARGB(255, 1, 114, 167),),
+                                SizedBox(width: 5,),
+                                Text("Licensed: ", style: TextStyle(fontSize: 16, fontWeight:FontWeight.w400),),
+                                Text("Tourist Driver", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),),
+                              ],
+                            ),
+                            SizedBox(height: 4,),
+                            Row(
+                              children: [
+                                Icon(Icons.circle_outlined, color: Color.fromARGB(255, 1, 114, 167),),
+                                SizedBox(width: 5,),
+                                Text("Email: ", style: TextStyle(fontSize: 16, fontWeight:FontWeight.w400),),
+                                Text(driverEmail.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),),
+                              ],
+                            ),
+                            SizedBox(height: 4,),
+                            Row(
+                              children: [
+                                Icon(Icons.circle_outlined, color: Color.fromARGB(255, 1, 114, 167),),
+                                SizedBox(width: 5,),
+                                Text("Driver Tel: ", style: TextStyle(fontSize: 16, fontWeight:FontWeight.w400),),
+                                Text(driverPhone.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
           
                 //pickup and return dtaes and times

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:travels_app/pages/home.dart';
 
 class FlightConfirmation extends StatelessWidget {
   const FlightConfirmation({super.key});
@@ -8,15 +9,18 @@ class FlightConfirmation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromARGB(255, 244, 168, 54),
         iconTheme: IconThemeData(
           color: Colors.white,
           weight: 34,
           size: 30,
         ),
-        title: Text(
-          'Confirmation',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
+        title: Center(
+          child: Text(
+            'Confirmation',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
+          ),
         ),
       ),
       body: Container(
@@ -77,7 +81,7 @@ class FlightConfirmation extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => FlightConfirmation()));
+                          builder: (context) => Home()));
                 },
                 child: Text(
                   "Download Ticket",
@@ -107,7 +111,7 @@ class FlightConfirmation extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FlightConfirmation()));
+                      MaterialPageRoute(builder: (context) => Home()));
                 },
                 child: Text(
                   "Print Ticket",

@@ -20,7 +20,7 @@ class _SearchVehicleHireState extends State<SearchVehicleHire> {
   final tripLocationController = TextEditingController();
 
   String? valueChoose;
-  List listItems = ["Car", "Van", "Bus", "Truck"];
+  List listItems = ["Car", "Van"];
 
   @override
   void dispose() {

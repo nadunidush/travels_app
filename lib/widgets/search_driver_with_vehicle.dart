@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travels_app/pages/book_bus_hire.dart';
 import 'package:travels_app/pages/book_car_hire.dart';
 import 'package:travels_app/pages/book_van_hire.dart';
 
@@ -20,7 +21,7 @@ class _SearchDriverWithVehicleState extends State<SearchDriverWithVehicle> {
   final tripLocationController = TextEditingController();
 
   String? valueChoose;
-  List listItems = ["Car", "Van", "Bus", "Truck"];
+  List listItems = ["Car", "Van", "Bus",];
 
   @override
   void dispose() {
@@ -142,6 +143,15 @@ class _SearchDriverWithVehicleState extends State<SearchDriverWithVehicle> {
                     docId: docRef.id,
                   )));
     }
+    if (valueChoose == "Bus") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BookBusHire(
+                    docId: docRef.id,
+                  )));
+    }
+
 
     print("Data saved successfully.");
   }
