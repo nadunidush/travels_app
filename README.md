@@ -1,6 +1,6 @@
 # travels_app
 
-A new Flutter project.
+Created a mobile app that lets customers make reservations for trips throughout the world. A vast array of booking choices, including flights and other vehicle types like cars, motorcycles, and more, are available on the app. included Firebase real-time data syncing to provide a flawless user experience.
 
 ## Getting Started
 
